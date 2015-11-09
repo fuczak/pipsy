@@ -1,1 +1,2 @@
-export load from './load';
+export loadFromBGG from './loadFromBGG';
+export loadFromDB from './loadFromDB';

@@ -1,7 +1,7 @@
 import request from 'request';
 import { parseString } from 'xml2js';
 
-export default function load(req) {
+export default function loadFromBGG(req) {
   console.log(req.url, req.query);
   return new Promise((resolve, reject) => {
     request({
@@ -16,11 +16,11 @@ export default function load(req) {
             return {
               id: el.$.id,
               name: el.name[0].$.value,
-              year: el.yearpublished ? el.yearpublished[0].$.value : '----'
+              year: el.yearpublished ? Number(el.yearpublished[0].$.value) : 0
             };
           }).sort());
         } else {
-          reject('Nothing found');
+          resolve([]);
         }
       });
     });
