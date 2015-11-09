@@ -7,3 +7,27 @@
   position: relative;
   padding-left: 50px;
 }
+
+/**
+  * Animations
+  */
+.example-enter {
+  opacity: 0.1;
+  transform: translateX(-20px);
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 300ms ease-in-out;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transform: translateX(-20px);
+  transition: all 300ms ease-in-out;
+}
