@@ -3,9 +3,8 @@ const QUERY_SUCCESS = 'pipsy/boardgames/QUERY_SUCCESS';
 const QUERY_FAIL = 'pipsy/boardgames/QUERY_FAIL';
 
 const initialState = {
-  loaded: false,
-  currentInput: '',
-  foundTitles: []
+  isFetching: false,
+  foundBoardgames: [],
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -13,19 +12,21 @@ export default function reducer(state = initialState, action = {}) {
     case QUERY:
       return {
         ...state,
-        loaded: true,
-        currentInput: action.payload,
-        foundTitles: [
-          ...state.foundTitles,
-          action.payload
-        ]
+        isFetching: true,
+        foundBoardgames: []
       };
     case QUERY_SUCCESS:
       return {
         ...state,
-        currentInput: action.result
+        isFetching: false,
+        foundBoardgames: action.result
       };
     case QUERY_FAIL:
+      return {
+        ...state,
+        isFetching: false,
+        foundBoardgames: []
+      };
     default:
       return state;
   }
@@ -35,7 +36,5 @@ export function load(query) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAIL],
     promise: (client) => client.get('/boardgames/load?q=' + query )
-    // type: QUERY,
-    // payload: query
   };
 }

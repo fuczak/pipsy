@@ -1,0 +1,35 @@
+@import "../../theme/variables.scss";
+
+.boardgameList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.boardgameListItem {
+  margin: 10px 0;
+  padding: 5px;
+  box-shadow: $box-shadow-1;
+  background: white;
+  &:hover {
+    box-shadow: $box-shadow-2;
+  }
+}
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transform: translateY(400px);
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

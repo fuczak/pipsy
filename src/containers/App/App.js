@@ -75,6 +75,7 @@ export default class App extends Component {
             </NavbarLink>
 
             <ul className="nav navbar-nav">
+              <li><NavbarLink to="/boardgames">Add Boardgames</NavbarLink></li>
               {user && <li><NavbarLink to="/chat">Chat</NavbarLink></li>}
 
               <li><NavbarLink to="/widgets">Widgets</NavbarLink></li>
@@ -94,7 +95,9 @@ export default class App extends Component {
           </div>
         </nav>
         <div className={styles.appContent}>
-          {this.props.children}
+          <div className="container">
+            {this.props.children}
+          </div>
         </div>
         <InfoBar/>
 
