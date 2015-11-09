@@ -8,7 +8,6 @@ const DBMock = [
     year: 2005,
     minplayers: 1,
     maxplayers: 8,
-    bestwith: 4,
     minplaytime: 120,
     maxplaytime: 240,
     minage: 12,
@@ -24,7 +23,6 @@ const DBMock = [
     year: 2002,
     minplayers: 2,
     maxplayers: 5,
-    bestwith: 4,
     minplaytime: 90,
     maxplaytime: 150,
     minage: 12,
@@ -36,5 +34,5 @@ const DBMock = [
 
 export default function loadFromBGG(req) {
   console.log(req.query.q);
-  return Promise.resolve([]);
+  return Promise.resolve(DBMock);
 }

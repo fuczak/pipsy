@@ -2,7 +2,6 @@ import request from 'request';
 import { parseString } from 'xml2js';
 
 export default function loadFromBGG(req) {
-  console.log(req.url, req.query);
   return new Promise((resolve, reject) => {
     request({
       url: `http://www.boardgamegeek.com/xmlapi2/search?query=${req.query.q}&type=boardgame`,
@@ -18,7 +17,7 @@ export default function loadFromBGG(req) {
               name: el.name[0].$.value,
               year: el.yearpublished ? Number(el.yearpublished[0].$.value) : 0
             };
-          }).sort());
+          }));
         } else {
           resolve([]);
         }
