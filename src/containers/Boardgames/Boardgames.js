@@ -20,12 +20,12 @@ export default class Boardgames extends Component {
     currentInput: PropTypes.string,
     loadFromDB: PropTypes.func,
     loadFromBGG: PropTypes.func,
-    addToStaging: PropTypes.func,
+    moveClickedToStaging: PropTypes.func,
     removeFromStaging: PropTypes.func
   }
 
   render() {
-    const { foundBoardgames, stagedBoardgames, responseReceived, currentInput, loadFromDB, loadFromBGG, addToStaging, removeFromStaging } = this.props;
+    const { foundBoardgames, stagedBoardgames, responseReceived, currentInput, loadFromDB, loadFromBGG, moveClickedToStaging, removeFromStaging } = this.props;
     return (
       <div className="container row">
         <div className="col-md-4">
@@ -35,7 +35,7 @@ export default class Boardgames extends Component {
             <p>Nic nie znaleziono. <a href="#" onClick={() => loadFromBGG(currentInput)}>Wyszukaj w BGG</a></p> :
             null
           }
-          <BoardgameList boardgames={foundBoardgames} handleCardClick={addToStaging}/>
+          <BoardgameList boardgames={foundBoardgames} handleCardClick={moveClickedToStaging}/>
         </div>
         <div className="col-md-4">
           <h2>Dodaj to poczekalni</h2>

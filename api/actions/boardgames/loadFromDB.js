@@ -33,6 +33,5 @@ const DBMock = [
 ];
 
 export default function loadFromBGG(req) {
-  console.log(req.query.q);
-  return Promise.resolve(DBMock);
+  return Promise.resolve([]);
 }

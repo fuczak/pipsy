@@ -43,10 +43,24 @@ export default function reducer(state = initialState, action = {}) {
         responseReceived: true
       };
     case GET_ONE:
+      return {
+        ...state,
+        isUpdating: true,
+      };
     case GET_ONE_SUCCESS:
+      return {
+        ...state,
+        isUpdating: false,
+        stagedBoardgames: [
+          ...state.stagedBoardgames.slice(0, state.stagedBoardgames.length - 1),
+          Object.assign({}, state.stagedBoardgames[state.stagedBoardgames.length - 1], action.result)
+        ]
+      };
     case GET_ONE_FAIL:
-      console.log(action);
-      return state;
+      return {
+        ...state,
+        isUpdating: false
+      };
     case ADD_TO_STAGING:
       if (state.stagedBoardgames.indexOf(state.foundBoardgames[action.payload.index]) !== -1) {
         return state;
@@ -91,10 +105,13 @@ export function loadFromBGG(query) {
   };
 }
 
-export function getOneFromBGG(query) {
+export function getOneFromBGG(index, id) {
   return {
     types: [GET_ONE, GET_ONE_SUCCESS, GET_ONE_FAIL],
-    promise: (client) => client.get('/boardgames/getOneFromBGG?q=' + query)
+    payload: {
+      index
+    },
+    promise: (client) => client.get('/boardgames/getOneFromBGG?q=' + id)
   };
 }
 
@@ -105,6 +122,10 @@ export function addToStaging(index) {
       index
     }
   };
+}
+
+export function moveClickedToStaging(index, isFromDB, id) {
+  return isFromDB === undefined ? [addToStaging(index), getOneFromBGG(index, id)] : addToStaging(index);
 }
 
 export function removeFromStaging(index) {
