@@ -18,7 +18,7 @@ export default class BoardgameSearch extends Component {
       <div className="input-group">
         <input type="text" className="form-control" placeholder="Wpisz nazwę planszówki..." ref="searchbox" onKeyUp={(ev) => this.handleKeyUp(ev)}/>
         <span className="input-group-btn">
-          <button className="btn btn-primary" type="button" onClick={::this.handleClick}>Szukaj</button>
+          <button className="btn btn-primary" type="button" onClick={::this.handleClick}>Wyszukaj</button>
         </span>
       </div>
     );

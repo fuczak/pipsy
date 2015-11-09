@@ -4,26 +4,42 @@ import * as boardgamesActions from 'redux/modules/boardgames';
 import { BoardgameSearch, BoardgameList } from 'components';
 
 @connect(
-  state => ({boardgames: state.boardgames.foundBoardgames}),
+  state => ({
+    foundBoardgames: state.boardgames.foundBoardgames,
+    stagedBoardgames: state.boardgames.stagedBoardgames,
+    responseReceived: state.boardgames.responseReceived,
+    currentInput: state.boardgames.currentInput
+  }),
   boardgamesActions
 )
 export default class Boardgames extends Component {
   static propTypes = {
-    boardgames: PropTypes.array.isRequired,
-    load: PropTypes.func.isRequired
+    foundBoardgames: PropTypes.array,
+    stagedBoardgames: PropTypes.array,
+    responseReceived: PropTypes.bool,
+    currentInput: PropTypes.string,
+    loadFromDB: PropTypes.func,
+    loadFromBGG: PropTypes.func,
+    addToStaging: PropTypes.func,
+    removeFromStaging: PropTypes.func
   }
 
   render() {
-    const { boardgames, load } = this.props;
+    const { foundBoardgames, stagedBoardgames, responseReceived, currentInput, loadFromDB, loadFromBGG, addToStaging, removeFromStaging } = this.props;
     return (
       <div className="container row">
         <div className="col-md-4">
           <h2>Wyszukaj grę planszową</h2>
-          <BoardgameSearch load={load} />
-          <BoardgameList boardgames={boardgames} />
+          <BoardgameSearch load={loadFromDB} buttonText="Wyszukaj w BGG"/>
+          {responseReceived && foundBoardgames.length === 0 ?
+            <p>Nic nie znaleziono. <a href="#" onClick={() => loadFromBGG(currentInput)}>Wyszukaj w BGG</a></p> :
+            null
+          }
+          <BoardgameList boardgames={foundBoardgames} handleCardClick={addToStaging}/>
         </div>
         <div className="col-md-4">
           <h2>Dodaj to poczekalni</h2>
+          <BoardgameList boardgames={stagedBoardgames} handleCardClick={removeFromStaging}/>
         </div>
         <div className="col-md-4">
           <h2>I zapisz jako dostępną w odpowiednim pubie</h2>
