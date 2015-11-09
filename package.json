@@ -99,6 +99,7 @@
     "pretty-error": "^1.2.0",
     "query-string": "^3.0.0",
     "react": "^0.14.2",
+    "react-addons-css-transition-group": "^0.14.2",
     "react-document-meta": "^2.0.0",
     "react-dom": "^0.14.1",
     "react-inline-css": "^2.0.0",
@@ -111,7 +112,8 @@
     "serve-static": "^1.10.0",
     "superagent": "^1.4.0",
     "url-loader": "^0.5.6",
-    "webpack-isomorphic-tools": "^2.2.4"
+    "webpack-isomorphic-tools": "^2.2.4",
+    "xml2js": "^0.4.15"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",

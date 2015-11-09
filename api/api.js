@@ -19,6 +19,10 @@ app.use(session({
 }));
 app.use(bodyParser.json());
 
+app.get('/boardgames', (req, res, next) => {
+  req.url = '/boardgames/load';
+  next();
+});
 
 app.use((req, res) => {
 
