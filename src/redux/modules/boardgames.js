@@ -1,6 +1,9 @@
 const QUERY = 'pipsy/boardgames/QUERY';
 const QUERY_SUCCESS = 'pipsy/boardgames/QUERY_SUCCESS';
 const QUERY_FAIL = 'pipsy/boardgames/QUERY_FAIL';
+const GET_ONE = 'pipsy/boardgames/GET_ONE';
+const GET_ONE_SUCCESS = 'pipsy/boardgames/GET_ONE_SUCCESS';
+const GET_ONE_FAIL = 'pipsu/boardgames/GET_ONE_FAIL';
 const ADD_TO_STAGING = 'pipsy/boardgames/ADD_TO_STAGING';
 const REMOVE_FROM_STAGING = 'pipsy/boardgames/REMOVE_FROM_STAGING';
 
@@ -39,6 +42,11 @@ export default function reducer(state = initialState, action = {}) {
         foundBoardgames: [],
         responseReceived: true
       };
+    case GET_ONE:
+    case GET_ONE_SUCCESS:
+    case GET_ONE_FAIL:
+      console.log(action);
+      return state;
     case ADD_TO_STAGING:
       if (state.stagedBoardgames.indexOf(state.foundBoardgames[action.payload.index]) !== -1) {
         return state;
@@ -80,6 +88,13 @@ export function loadFromBGG(query) {
       query
     },
     promise: (client) => client.get('/boardgames/loadFromBGG?q=' + query)
+  };
+}
+
+export function getOneFromBGG(query) {
+  return {
+    types: [GET_ONE, GET_ONE_SUCCESS, GET_ONE_FAIL],
+    promise: (client) => client.get('/boardgames/getOneFromBGG?q=' + query)
   };
 }
 
