@@ -104,12 +104,9 @@ export function loadFromBGG(query) {
   };
 }
 
-export function getOneFromBGG(index, id) {
+export function getOneFromBGG(id) {
   return {
     types: [GET_ONE, GET_ONE_SUCCESS, GET_ONE_FAIL],
-    payload: {
-      index
-    },
     promise: (client) => client.get('/boardgames/getOneFromBGG?q=' + id)
   };
 }
@@ -126,9 +123,10 @@ export function addToStaging(index) {
 export function moveClickedToStaging(index, game) {
   return (dispatch, getState) => {
     const state = getState().boardgames;
-    if (!isInArray(state.stagedBoardgames, game.id)) {
+    if (!isInArray(state.stagedBoardgames, game.id) && !state.isUpdating) {
       dispatch(addToStaging(index));
-      dispatch(getOneFromBGG(index, game.id));
+      console.log(getState().boardgames.isUpdating);
+      dispatch(getOneFromBGG(game.id));
     }
   };
 }
