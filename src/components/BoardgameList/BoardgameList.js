@@ -18,7 +18,7 @@ export default class BoardgameList extends Component {
           <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
           {boardgames.map((game, index) => {
             return (
-              <li className={styles.boardgameListItem} key={game.id} onClick={() => handleCardClick(index, game.score, game.id)}>
+              <li className={styles.boardgameListItem} key={game.id} onClick={() => handleCardClick(index, game)}>
                 <BoardgameListItem
                   thumbnail={game.thumbnail}
                   name={game.name}

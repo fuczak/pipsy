@@ -7,6 +7,8 @@ const GET_ONE_FAIL = 'pipsu/boardgames/GET_ONE_FAIL';
 const ADD_TO_STAGING = 'pipsy/boardgames/ADD_TO_STAGING';
 const REMOVE_FROM_STAGING = 'pipsy/boardgames/REMOVE_FROM_STAGING';
 
+import isInArray from '../../helpers/isInArray';
+
 const initialState = {
   isFetching: false,
   foundBoardgames: [],
@@ -62,9 +64,6 @@ export default function reducer(state = initialState, action = {}) {
         isUpdating: false
       };
     case ADD_TO_STAGING:
-      if (state.stagedBoardgames.indexOf(state.foundBoardgames[action.payload.index]) !== -1) {
-        return state;
-      }
       return {
         ...state,
         stagedBoardgames: [
@@ -124,8 +123,14 @@ export function addToStaging(index) {
   };
 }
 
-export function moveClickedToStaging(index, isFromDB, id) {
-  return isFromDB === undefined ? [addToStaging(index), getOneFromBGG(index, id)] : addToStaging(index);
+export function moveClickedToStaging(index, game) {
+  return (dispatch, getState) => {
+    const state = getState().boardgames;
+    if (!isInArray(state.stagedBoardgames, game.id)) {
+      dispatch(addToStaging(index));
+      dispatch(getOneFromBGG(index, game.id));
+    }
+  };
 }
 
 export function removeFromStaging(index) {
