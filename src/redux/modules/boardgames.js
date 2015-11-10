@@ -125,8 +125,7 @@ export function moveClickedToStaging(index, game) {
     const state = getState().boardgames;
     if (!isInArray(state.stagedBoardgames, game.id) && !state.isUpdating) {
       dispatch(addToStaging(index));
-      console.log(getState().boardgames.isUpdating);
-      dispatch(getOneFromBGG(game.id));
+      if (game.score === undefined) dispatch(getOneFromBGG(game.id));
     }
   };
 }
