@@ -7,9 +7,15 @@ import config from '../src/config';
 import * as actions from './actions/index';
 import {mapUrl} from 'utils/url.js';
 import PrettyError from 'pretty-error';
+import mongoose from 'mongoose';
 
 const pretty = new PrettyError();
 const app = express();
+
+mongoose.connect(config.mongoUri);
+mongoose.connection.on('error', () => {
+  console.error('MongoDB Connection Error. Please make sure that MongoDB is running.');
+});
 
 app.use(session({
   secret: 'react and redux rule!!!!',
@@ -21,6 +27,27 @@ app.use(bodyParser.json());
 
 app.get('/v1/boardgames', (req, res, next) => {
   req.url = '/boardgames/loadFromDB';
+  next();
+});
+
+app.post('/v1/boardgames', (req, res, next) => {
+  req.url = '/boardgames/addBoardgameToDB';
+  req.body = {
+    id: 2,
+    thumbnail: 'http://cf.geekdo-images.com/images/pic158548_t.jpg',
+    image: 'http://cf.geekdo-images.com/images/pic158548.jpg',
+    name: 'Puerto Rico',
+    description: 'In Puerto Rico... ',
+    year: 2002,
+    minplayers: 2,
+    maxplayers: 5,
+    minplaytime: 90,
+    maxplaytime: 150,
+    minage: 12,
+    categories: ['Economic', 'City building'],
+    mechanics: ['Variable phase order'],
+    score: 8.14
+  };
   next();
 });
 
