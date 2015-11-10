@@ -22,7 +22,7 @@ export default function getOneFromBGG(req) {
         if (err) reject(err);
         const el = res.items.item[0];
         resolve({
-          id: el.$.id,
+          bggid: el.$.id,
           thumbnail: el.thumbnail[0],
           image: el.image[0],
           name: el.name[0].$.value,

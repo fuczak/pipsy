@@ -13,7 +13,7 @@ export default function loadFromBGG(req) {
         if (Array.isArray(res.items.item)) {
           resolve(res.items.item.map((el) => {
             return {
-              id: el.$.id,
+              bggid: el.$.id,
               name: el.name[0].$.value,
               year: el.yearpublished ? Number(el.yearpublished[0].$.value) : 0
             };

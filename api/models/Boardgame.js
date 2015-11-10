@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const boardgameSchema = new mongoose.Schema({
-  id: {
+  bggid: {
     type: Number,
     unique: true
   },
