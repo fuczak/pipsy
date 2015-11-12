@@ -8,7 +8,7 @@ import { BoardgameSearch, BoardgameList } from 'components';
     foundBoardgames: state.boardgames.foundBoardgames,
     stagedBoardgames: state.boardgames.stagedBoardgames,
     responseReceived: state.boardgames.responseReceived,
-    currentInput: state.boardgames.currentInput
+    isFetching: state.boardgames.isFetching
   }),
   boardgamesActions
 )
@@ -17,25 +17,27 @@ export default class Boardgames extends Component {
     foundBoardgames: PropTypes.array,
     stagedBoardgames: PropTypes.array,
     responseReceived: PropTypes.bool,
-    currentInput: PropTypes.string,
-    loadFromDB: PropTypes.func,
-    loadFromBGG: PropTypes.func,
+    isFetching: PropTypes.bool,
+    load: PropTypes.func,
     moveClickedToStaging: PropTypes.func,
     removeFromStaging: PropTypes.func
   }
 
   render() {
-    const { foundBoardgames, stagedBoardgames, responseReceived, currentInput, loadFromDB, loadFromBGG, moveClickedToStaging, removeFromStaging } = this.props;
+    const { foundBoardgames, stagedBoardgames, responseReceived, isFetching, load, moveClickedToStaging, removeFromStaging } = this.props;
     return (
       <div className="container row">
         <div className="col-md-4">
           <h2>Wyszukaj grę planszową</h2>
-          <BoardgameSearch load={loadFromDB} buttonText="Wyszukaj w BGG"/>
-          {responseReceived && foundBoardgames.length === 0 ?
-            <p>Nic nie znaleziono. <a href="#" onClick={() => loadFromBGG(currentInput)}>Wyszukaj w BGG</a></p> :
-            null
-          }
-          <BoardgameList boardgames={foundBoardgames} handleCardClick={moveClickedToStaging}/>
+          <BoardgameSearch load={load} buttonText="Wyszukaj"/>
+            {responseReceived && foundBoardgames.length === 0 ?
+              <p>Nie znaleziono.</p> :
+              null
+            }
+            {isFetching ?
+              <p>Fetching data...</p> :
+              <BoardgameList boardgames={foundBoardgames} handleCardClick={moveClickedToStaging}/>
+            }
         </div>
         <div className="col-md-4">
           <h2>Dodaj to poczekalni</h2>
