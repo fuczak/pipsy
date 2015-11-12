@@ -6,7 +6,7 @@ export default class BoardgameSearch extends Component {
   }
 
   handleClick() {
-    this.props.load(this.refs.searchbox.value);
+    this.props.load(this.input.value, 'DB');
   }
 
   handleKeyUp(ev) {
@@ -16,7 +16,11 @@ export default class BoardgameSearch extends Component {
   render() {
     return (
       <div className="input-group">
-        <input type="text" className="form-control" placeholder="Wpisz nazwę planszówki..." ref="searchbox" onKeyUp={(ev) => this.handleKeyUp(ev)}/>
+        <input type="text"
+          className="form-control"
+          placeholder="Wpisz nazwę planszówki..."
+          ref={(node) => this.input = node}
+          onKeyUp={::this.handleKeyUp} />
         <span className="input-group-btn">
           <button className="btn btn-primary" type="button" onClick={::this.handleClick}>Wyszukaj</button>
         </span>
