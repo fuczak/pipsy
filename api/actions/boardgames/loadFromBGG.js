@@ -5,12 +5,12 @@ export default function loadFromBGG(req) {
   return new Promise((resolve, reject) => {
     request({
       url: `http://www.boardgamegeek.com/xmlapi2/search?query=${req.query.q}&type=boardgame`,
-      timeout: 5000
+      timeout: 10000
     }, (error, response, body) => {
       if (error) reject(error);
       parseString(body, (err, res) => {
         if (err) reject(err);
-        if (Array.isArray(res.items.item)) {
+        if (Array.isArray(res.items)) {
           resolve(res.items.item.map((el) => {
             return {
               bggid: el.$.id,
