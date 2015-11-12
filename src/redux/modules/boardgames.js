@@ -1,6 +1,7 @@
 const QUERY = 'pipsy/boardgames/QUERY';
 const QUERY_SUCCESS = 'pipsy/boardgames/QUERY_SUCCESS';
 const QUERY_FAIL = 'pipsy/boardgames/QUERY_FAIL';
+const SELECT_ENDPOINT = 'pipsy/boardgames/SELECT_ENDPOINT';
 const GET_ONE = 'pipsy/boardgames/GET_ONE';
 const GET_ONE_SUCCESS = 'pipsy/boardgames/GET_ONE_SUCCESS';
 const GET_ONE_FAIL = 'pipsu/boardgames/GET_ONE_FAIL';
@@ -12,11 +13,12 @@ import isInArray from '../../helpers/isInArray';
 const initialState = {
   isFetching: false,
   foundBoardgames: [],
-  currentInput: '',
   responseReceived: false,
   stagedBoardgames: [],
   selectedPub: '',
   availablePubs: [],
+  selectedEndpoint: 'DB',
+  availableEnpoints: ['DB', 'BGG'],
   isUpdating: false
 };
 
@@ -43,6 +45,11 @@ export default function reducer(state = initialState, action = {}) {
         isFetching: false,
         foundBoardgames: [],
         responseReceived: true
+      };
+    case SELECT_ENDPOINT:
+      return {
+        ...state,
+        selectedEndpoint: action.payload.endpoint
       };
     case GET_ONE:
       return {
@@ -84,23 +91,22 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function loadFromDB(query) {
+export function load(query, endpoint) {
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAIL],
     payload: {
       query
     },
-    promise: (client) => client.get('/boardgames/loadFromDB?q=' + query)
+    promise: (client) => client.get(`/boardgames/loadFrom${endpoint}?q=` + query)
   };
 }
 
-export function loadFromBGG(query) {
+export function selectEndpoint(endpoint) {
   return {
-    types: [QUERY, QUERY_SUCCESS, QUERY_FAIL],
+    type: SELECT_ENDPOINT,
     payload: {
-      query
-    },
-    promise: (client) => client.get('/boardgames/loadFromBGG?q=' + query)
+      endpoint
+    }
   };
 }
 
