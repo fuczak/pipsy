@@ -28,7 +28,6 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         isFetching: true,
-        currentInput: action.payload.query,
         foundBoardgames: [],
         responseReceived: false
       };
