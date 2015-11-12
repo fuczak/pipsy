@@ -8,7 +8,9 @@ import { BoardgameSearch, BoardgameList } from 'components';
     foundBoardgames: state.boardgames.foundBoardgames,
     stagedBoardgames: state.boardgames.stagedBoardgames,
     responseReceived: state.boardgames.responseReceived,
-    isFetching: state.boardgames.isFetching
+    isFetching: state.boardgames.isFetching,
+    selectedEndpoint: state.boardgames.selectedEndpoint,
+    availableEndpoints: state.boardgames.availableEndpoints
   }),
   boardgamesActions
 )
@@ -18,18 +20,21 @@ export default class Boardgames extends Component {
     stagedBoardgames: PropTypes.array,
     responseReceived: PropTypes.bool,
     isFetching: PropTypes.bool,
+    selectedEndpoint: PropTypes.string,
+    availableEndpoints: PropTypes.array,
     load: PropTypes.func,
+    selectEndpoint: PropTypes.func,
     moveClickedToStaging: PropTypes.func,
     removeFromStaging: PropTypes.func
   }
 
   render() {
-    const { foundBoardgames, stagedBoardgames, responseReceived, isFetching, load, moveClickedToStaging, removeFromStaging } = this.props;
+    const { foundBoardgames, stagedBoardgames, responseReceived, isFetching, selectedEndpoint, availableEndpoints, load, selectEndpoint, moveClickedToStaging, removeFromStaging } = this.props;
     return (
       <div className="container row">
         <div className="col-md-4">
           <h2>Wyszukaj grę planszową</h2>
-          <BoardgameSearch load={load} buttonText="Wyszukaj"/>
+          <BoardgameSearch load={load} selectedEndpoint={selectedEndpoint} availableEndpoints={availableEndpoints} onSelectEndpoint={selectEndpoint}/>
             {responseReceived && foundBoardgames.length === 0 ?
               <p>Nie znaleziono.</p> :
               null

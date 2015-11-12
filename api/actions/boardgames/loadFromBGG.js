@@ -10,7 +10,7 @@ export default function loadFromBGG(req) {
       if (error) reject(error);
       parseString(body, (err, res) => {
         if (err) reject(err);
-        if (Array.isArray(res.items)) {
+        if (Array.isArray(res.items.item)) {
           resolve(res.items.item.map((el) => {
             return {
               bggid: el.$.id,

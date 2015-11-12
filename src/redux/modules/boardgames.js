@@ -18,7 +18,7 @@ const initialState = {
   selectedPub: '',
   availablePubs: [],
   selectedEndpoint: 'DB',
-  availableEnpoints: ['DB', 'BGG'],
+  availableEndpoints: ['DB', 'BGG'],
   isUpdating: false
 };
 
