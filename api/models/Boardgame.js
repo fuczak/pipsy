@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const boardgameSchema = new mongoose.Schema({
+export default mongoose.Schema({ // eslint-disable-line
   bggid: {
     type: Number,
     unique: true
@@ -19,5 +19,3 @@ const boardgameSchema = new mongoose.Schema({
   mechanics: [String],
   score: Number
 });
-
-export default mongoose.model('Boardgame', boardgameSchema);

@@ -15,7 +15,7 @@ export default class BoardgameList extends Component {
       <div>
         <ul className={styles.boardgameList}>
           {/* TODO: Make ReactCSSTransitionGroup work somehow */}
-          <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+          <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={200} transitionLeaveTimeout={200}>
           {boardgames.map((game, index) => {
             return (
               <li className={styles.boardgameListItem} key={game.bggid} onClick={() => handleCardClick(index, game)}>

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const pubSchema = new mongoose.Schema({
+export default mongoose.Schema({ // eslint-disable-line
   name: {
     type: String,
     unique: true,
@@ -8,5 +8,3 @@ const pubSchema = new mongoose.Schema({
   },
   boardgames: [mongoose.Schema.Types.ObjectId]
 });
-
-export default mongoose.model('Pub', pubSchema);

@@ -91,12 +91,13 @@ export default function reducer(state = initialState, action = {}) {
 }
 
 export function load(query, endpoint) {
+  const url = (endpoint === 'DB') ? `/boardgames?name__regex=/${query}/i` : `/boardgames/bgg?q=${query}`;
   return {
     types: [QUERY, QUERY_SUCCESS, QUERY_FAIL],
     payload: {
       query
     },
-    promise: (client) => client.get(`/boardgames/loadFrom${endpoint}?q=` + query)
+    promise: (client) => client.get(url)
   };
 }
 
@@ -112,7 +113,7 @@ export function selectEndpoint(endpoint) {
 export function getOneFromBGG(id) {
   return {
     types: [GET_ONE, GET_ONE_SUCCESS, GET_ONE_FAIL],
-    promise: (client) => client.get('/boardgames/getOneFromBGG?q=' + id)
+    promise: (client) => client.get(`/boardgames/bggone?q=${id}`)
   };
 }
 

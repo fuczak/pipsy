@@ -3,13 +3,14 @@ require('../server.babel'); // babel registration (runtime transpilation for nod
 import express from 'express';
 import session from 'express-session';
 import bodyParser from 'body-parser';
+import methodOverride from 'method-override';
 import config from '../src/config';
 import * as actions from './actions/index';
-import {mapUrl} from 'utils/url.js';
-import PrettyError from 'pretty-error';
 import mongoose from 'mongoose';
+import restful from 'node-restful';
+import Pub from './models/Pub';
+import Boardgame from './models/Boardgame';
 
-const pretty = new PrettyError();
 const app = express();
 
 mongoose.connect(config.mongoUri);
@@ -23,56 +24,27 @@ app.use(session({
   saveUninitialized: false,
   cookie: { maxAge: 60000 }
 }));
+
+app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
+app.use(bodyParser.json({type: 'application/vnd.api+json'}));
+app.use(methodOverride());
 
-app.get('/v1/boardgames', (req, res, next) => {
-  req.url = '/boardgames/loadFromDB';
-  next();
+const Pubs = app.resource = restful.model('pub', Pub).methods(['get', 'post']);
+Pubs.register(app, '/pubs');
+
+const Boardgames = app.resource = restful.model('boardgame', Boardgame).methods(['get', 'post']);
+Boardgames.route('bgg.get', (req, res) => {
+  actions.boardgames.loadFromBGG(req).then((data) => {
+    res.send(data);
+  });
 });
-
-app.post('/v1/boardgames', (req, res, next) => {
-  req.url = '/boardgames/addBoardgameToDB';
-  req.body = {
-    id: 2,
-    thumbnail: 'http://cf.geekdo-images.com/images/pic158548_t.jpg',
-    image: 'http://cf.geekdo-images.com/images/pic158548.jpg',
-    name: 'Puerto Rico',
-    description: 'In Puerto Rico... ',
-    year: 2002,
-    minplayers: 2,
-    maxplayers: 5,
-    minplaytime: 90,
-    maxplaytime: 150,
-    minage: 12,
-    categories: ['Economic', 'City building'],
-    mechanics: ['Variable phase order'],
-    score: 8.14
-  };
-  next();
+Boardgames.route('bggone.get', (req, res) => {
+  actions.boardgames.getOneFromBGG(req).then((data) => {
+    res.send(data);
+  });
 });
-
-app.use((req, res) => {
-
-  const splittedUrlPath = req.url.split('?')[0].split('/').slice(1);
-
-  const {action, params} = mapUrl(actions, splittedUrlPath);
-
-  if (action) {
-    action(req, params)
-      .then((result) => {
-        res.json(result);
-      }, (reason) => {
-        if (reason && reason.redirect) {
-          res.redirect(reason.redirect);
-        } else {
-          console.error('API ERROR:', pretty.render(reason));
-          res.status(reason.status || 500).json(reason);
-        }
-      });
-  } else {
-    res.status(404).end('NOT FOUND');
-  }
-});
+Boardgames.register(app, '/boardgames');
 
 if (config.apiPort) {
   app.listen(config.apiPort, (err) => {

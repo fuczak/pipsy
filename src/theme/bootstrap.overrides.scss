@@ -19,7 +19,7 @@
 .example-enter.example-enter-active {
   opacity: 1;
   transform: translateY(0);
-  transition: all 300ms ease-in-out;
+  transition: all 200ms ease-out;
 }
 
 .example-leave {
@@ -29,5 +29,5 @@
 .example-leave.example-leave-active {
   opacity: 0.01;
   transform: translateX(-20px);
-  transition: all 300ms ease-in-out;
+  transition: all 200ms ease-out;
 }
