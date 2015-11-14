@@ -23,22 +23,22 @@ export default class BoardgameSearch extends Component {
   render() {
     const {selectedEndpoint, availableEndpoints} = this.props;
     return (
-      <div className="input-group">
-        <span className="input-group-addon">
-          <select defaultValue={selectedEndpoint} onChange={::this.handleEndpointChange}>
-            {availableEndpoints.map((endpoint) => {
-              return <option key={endpoint} value={endpoint}>{endpoint}</option>;
-            })}
-          </select>
-        </span>
-        <input type="text"
-          className="form-control"
-          placeholder="Wpisz nazwę planszówki..."
-          ref={(node) => this.input = node}
-          onKeyUp={::this.handleKeyUp} />
-        <span className="input-group-btn">
-          <button className="btn btn-primary" type="button" onClick={::this.handleClick}>Wyszukaj</button>
-        </span>
+      <div>
+        <select className="form-control" defaultValue={selectedEndpoint} onChange={::this.handleEndpointChange}>
+          {availableEndpoints.map((endpoint) => {
+            return <option key={endpoint} value={endpoint}>{endpoint}</option>;
+          })}
+        </select>
+        <div className="input-group">
+          <input type="text"
+            className="form-control"
+            placeholder="Wpisz nazwę planszówki..."
+            ref={(node) => this.input = node}
+            onKeyUp={::this.handleKeyUp} />
+          <span className="input-group-btn">
+            <button className="btn btn-primary" type="button" onClick={::this.handleClick}>Wyszukaj</button>
+          </span>
+        </div>
       </div>
     );
   }
