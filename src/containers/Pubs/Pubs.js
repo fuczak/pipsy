@@ -26,8 +26,7 @@ export default class Pubs extends Component {
   }
 
   handleSubmitButtonClick() {
-    const selectedPub = this.props.selectedPub;
-    console.log(selectedPub);
+    console.log();
   }
 
   render() {
