@@ -16,10 +16,6 @@ export default class Pubs extends Component {
     getPubs: PropTypes.func
   }
 
-  componentDidMount() {
-    this.props.getPubs();
-  }
-
   render() {
     return (
       <div>

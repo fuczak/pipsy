@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as boardgamesActions from 'redux/modules/boardgames';
+import { arePubsLoaded, getPubs } from 'redux/modules/pubs';
 import Spinner from 'react-spinkit';
 import { BoardgameSearch, BoardgameList } from 'components';
 import { Pubs } from 'containers';
@@ -12,7 +13,7 @@ import { Pubs } from 'containers';
     responseReceived: state.boardgames.responseReceived,
     isFetching: state.boardgames.isFetching,
     selectedEndpoint: state.boardgames.selectedEndpoint,
-    availableEndpoints: state.boardgames.availableEndpoints
+    availableEndpoints: state.boardgames.availableEndpoints,
   }),
   boardgamesActions
 )
@@ -28,6 +29,12 @@ export default class Boardgames extends Component {
     selectEndpoint: PropTypes.func,
     moveClickedToStaging: PropTypes.func,
     removeFromStaging: PropTypes.func
+  }
+
+  static fetchDataDeferred(getState, dispatch) {
+    if (!arePubsLoaded(getState())) {
+      dispatch(getPubs());
+    }
   }
 
   render() {
