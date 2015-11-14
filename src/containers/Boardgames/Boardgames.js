@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import * as boardgamesActions from 'redux/modules/boardgames';
+import Spinner from 'react-spinkit';
 import { BoardgameSearch, BoardgameList } from 'components';
+import { Pubs } from 'containers';
 
 @connect(
   state => ({
@@ -40,9 +42,9 @@ export default class Boardgames extends Component {
               null
             }
             {isFetching ?
-              <p>Fetching data...</p> :
-              <BoardgameList boardgames={foundBoardgames} handleCardClick={moveClickedToStaging}/>
+              <Spinner spinnerName="three-bounce" /> : null
             }
+            <BoardgameList boardgames={foundBoardgames} handleCardClick={moveClickedToStaging}/>
         </div>
         <div className="col-md-4">
           <h2>Dodaj to poczekalni</h2>
@@ -50,6 +52,7 @@ export default class Boardgames extends Component {
         </div>
         <div className="col-md-4">
           <h2>I zapisz jako dostępną w odpowiednim pubie</h2>
+          <Pubs />
         </div>
       </div>
     );
