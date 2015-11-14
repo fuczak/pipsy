@@ -16,6 +16,10 @@ export default class Pubs extends Component {
     getPubs: PropTypes.func
   }
 
+  componentDidMount() {
+    if (this.props.availablePubs.length === 0) this.props.getPubs();
+  }
+
   render() {
     return (
       <div>
