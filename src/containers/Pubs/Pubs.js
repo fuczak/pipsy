@@ -37,7 +37,7 @@ export default class Pubs extends Component {
             return <option key={pub._id}>{pub.name}</option>;
           })}
         </select>
-        <button className="btn btn-default" onClick={::this.handleSubmitButtonClick}>Submit</button>
+        <button className="btn btn-primary btn-block" onClick={::this.handleSubmitButtonClick}>Submit</button>
       </div>
     );
   }

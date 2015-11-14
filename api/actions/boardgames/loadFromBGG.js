@@ -11,13 +11,21 @@ export default function loadFromBGG(req) {
       parseString(body, (err, res) => {
         if (err) reject(err);
         if (Array.isArray(res.items.item)) {
-          resolve(res.items.item.map((el) => {
-            return {
-              bggid: el.$.id,
-              name: el.name[0].$.value,
-              year: el.yearpublished ? Number(el.yearpublished[0].$.value) : 0
-            };
-          }));
+          resolve(res.items.item
+            .map((el) => {
+              return {
+                bggid: el.$.id,
+                type: el.$.type,
+                name: el.name[0].$.value,
+                year: el.yearpublished ? Number(el.yearpublished[0].$.value) : 0
+              };
+            })
+            .filter((el) => {
+              return el.type === 'boardgame';
+            })
+            .sort((prev, current) => {
+              return current.year - prev.year;
+            }));
         } else {
           resolve([]);
         }
