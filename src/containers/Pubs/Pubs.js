@@ -13,21 +13,32 @@ export default class Pubs extends Component {
   static propTypes = {
     availablePubs: PropTypes.array,
     selectedPub: PropTypes.object,
-    getPubs: PropTypes.func
+    getPubs: PropTypes.func,
+    setSelectedPub: PropTypes.func
   }
 
   componentDidMount() {
     if (this.props.availablePubs.length === 0) this.props.getPubs();
   }
 
+  handleSelectedPubChange(ev) {
+    this.props.setSelectedPub(ev.target.selectedIndex);
+  }
+
+  handleSubmitButtonClick() {
+    const selectedPub = this.props.selectedPub;
+    console.log(selectedPub);
+  }
+
   render() {
     return (
       <div>
-        Pubs Component
-        {this.props.availablePubs.map((pub) => {
-          return <p key={pub._id}>{pub.name}</p>;
-        })}
-        <button className="btn" onClick={::this.props.getPubs}>Dawaj</button>
+        <select className="form-control" defaultValue={this.props.availablePubs[0]} onChange={::this.handleSelectedPubChange}>
+          {this.props.availablePubs.map((pub) => {
+            return <option key={pub._id}>{pub.name}</option>;
+          })}
+        </select>
+        <button className="btn btn-default" onClick={::this.handleSubmitButtonClick}>Submit</button>
       </div>
     );
   }
