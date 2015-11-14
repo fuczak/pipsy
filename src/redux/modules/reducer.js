@@ -4,6 +4,7 @@ import { routerStateReducer } from 'redux-router';
 
 import auth from './auth';
 import boardgames from './boardgames';
+import pubs from './pubs';
 import counter from './counter';
 import {reducer as form} from 'redux-form';
 import info from './info';
@@ -13,6 +14,7 @@ export default combineReducers({
   router: routerStateReducer,
   auth,
   boardgames,
+  pubs,
   form,
   multireducer: multireducer({
     counter1: counter,

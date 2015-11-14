@@ -15,8 +15,6 @@ const initialState = {
   foundBoardgames: [],
   responseReceived: false,
   stagedBoardgames: [],
-  selectedPub: '',
-  availablePubs: [],
   selectedEndpoint: 'DB',
   availableEndpoints: ['DB', 'BGG'],
   isUpdating: false
