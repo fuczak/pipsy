@@ -24,7 +24,8 @@ export default function loadFromBGG(req) {
               return el.type === 'boardgame';
             })
             .sort((prev, current) => {
-              return current.year - prev.year;
+              // TODO: Should the items be sorted by year?
+              // return current.year - prev.year;
             }));
         } else {
           resolve([]);
