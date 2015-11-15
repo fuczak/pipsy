@@ -2,7 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as pubsActions from 'redux/modules/pubs';
-import { submitStagedGames } from 'redux/modules/boardgames';
+import { arePubsLoaded, getPubs } from 'redux/modules/pubs';
+import { PubCard } from 'components';
 
 @connect(
   (state) => ({
@@ -10,39 +11,41 @@ import { submitStagedGames } from 'redux/modules/boardgames';
     selectedPub: state.pubs.selectedPub
   }),
   (dispatch) => ({
-    pubsActions: bindActionCreators(pubsActions, dispatch),
-    submitStagedGames: bindActionCreators(submitStagedGames, dispatch)
+    pubsActions: bindActionCreators(pubsActions, dispatch)
   })
 )
 export default class Pubs extends Component {
   static propTypes = {
     availablePubs: PropTypes.array,
     selectedPub: PropTypes.object,
-    pubsActions: PropTypes.object,
-    submitStagedGames: PropTypes.func
+    pubsActions: PropTypes.object
   }
 
   componentDidMount() {
     if (this.props.availablePubs.length === 0) this.props.pubsActions.getPubs();
   }
 
-  handleSelectedPubChange(ev) {
-    this.props.pubsActions.setSelectedPub(ev.target.selectedIndex);
-  }
-
-  handleSubmitButtonClick() {
-    this.props.submitStagedGames();
+  static fetchData(getState, dispatch) {
+    console.log('fetchData called');
+    if (!arePubsLoaded(getState())) dispatch(getPubs());
   }
 
   render() {
+    const { availablePubs } = this.props;
     return (
-      <div>
-        <select className="form-control" defaultValue={this.props.availablePubs[0]} onChange={::this.handleSelectedPubChange}>
-          {this.props.availablePubs.map((pub) => {
-            return <option key={pub._id}>{pub.name}</option>;
-          })}
-        </select>
-        <button className="btn btn-primary btn-block" onClick={::this.handleSubmitButtonClick}>Submit</button>
+      <div className="row">
+        <div className="col-md-10 col-md-offset-1">
+          <button className="btn btn-success">Add new pub</button>
+          <div className="row">
+            {availablePubs.map((pub) => {
+              return (
+                <div key={pub._id} className="col-md-3">
+                  <PubCard pub={pub} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     );
   }

@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { IndexLink, Link } from 'react-router';
 import { connect } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
-import { InfoBar } from 'components';
 import { pushState } from 'redux-router';
 import config from '../../config';
 
@@ -33,7 +32,6 @@ export default class App extends Component {
   };
 
   render() {
-    const {user} = this.props;
     const styles = require('./App.scss');
     return (
       <div className={styles.app}>
@@ -46,10 +44,9 @@ export default class App extends Component {
             </NavbarLink>
 
             <ul className="nav navbar-nav">
-              <li><NavbarLink to="/boardgames">Add Boardgames</NavbarLink></li>
+              <li><NavbarLink to="/pubs">Pubs</NavbarLink></li>
+              <li><NavbarLink to="/boardgames">Boardgames</NavbarLink></li>
             </ul>
-            {user &&
-            <p className={styles.loggedInMessage + ' navbar-text'}>Logged in as <strong>{user.name}</strong>.</p>}
             <ul className="nav navbar-nav navbar-right">
               <li>
                 <a href="https://github.com/erikras/react-redux-universal-hot-example"
@@ -59,17 +56,9 @@ export default class App extends Component {
           </div>
         </nav>
         <div className={styles.appContent}>
-          <div className="container">
+          <div className="container-fluid">
             {this.props.children}
           </div>
-        </div>
-        <InfoBar/>
-
-        <div className="well text-center">
-          Have questions? Ask for help <a
-          href="https://github.com/erikras/react-redux-universal-hot-example/issues"
-          target="_blank">on Github</a> or in the <a
-          href="https://discordapp.com/channels/102860784329052160/105739309289623552" target="_blank">#react-redux-universal</a> Discord channel.
         </div>
       </div>
     );
