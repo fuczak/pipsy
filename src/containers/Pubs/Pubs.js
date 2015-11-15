@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as pubsActions from 'redux/modules/pubs';
 import { arePubsLoaded, getPubs } from 'redux/modules/pubs';
@@ -16,6 +17,7 @@ import { PubCard } from 'components';
 )
 export default class Pubs extends Component {
   static propTypes = {
+    children: PropTypes.object,
     availablePubs: PropTypes.array,
     selectedPub: PropTypes.object,
     pubsActions: PropTypes.object
@@ -26,7 +28,6 @@ export default class Pubs extends Component {
   }
 
   static fetchData(getState, dispatch) {
-    console.log('fetchData called');
     if (!arePubsLoaded(getState())) dispatch(getPubs());
   }
 
@@ -35,7 +36,7 @@ export default class Pubs extends Component {
     return (
       <div className="row">
         <div className="col-md-10 col-md-offset-1">
-          <button className="btn btn-success">Add new pub</button>
+          <Link to={'/pubs/new'} className="btn btn-success">Add new pub</Link>
           <div className="row">
             {availablePubs.map((pub) => {
               return (

@@ -5,6 +5,7 @@ import {
     App,
     Boardgames,
     Pubs,
+    NewPub,
     Home,
     NotFound,
   } from 'containers';
@@ -19,7 +20,8 @@ export default () => {
       <IndexRoute component={Home}/>
       { /* Routes */ }
       <Route path="boardgames" component={Boardgames}/>
-      <Route path="pubs" component={Pubs}/>
+      <Route path="pubs" component={Pubs} />
+      <Route path="pubs/new" component={NewPub} />
       { /* Catch all route */ }
       <Route path="*" component={NotFound} status={404} />
     </Route>
