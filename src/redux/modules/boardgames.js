@@ -7,17 +7,20 @@ const GET_ONE_SUCCESS = 'pipsy/boardgames/GET_ONE_SUCCESS';
 const GET_ONE_FAIL = 'pipsu/boardgames/GET_ONE_FAIL';
 const ADD_TO_STAGING = 'pipsy/boardgames/ADD_TO_STAGING';
 const REMOVE_FROM_STAGING = 'pipsy/boardgames/REMOVE_FROM_STAGING';
+const POST_BOARDGAME = 'pipsy/pubs/POST_BOARDGAME';
+const POST_BOARDGAME_SUCCESS = 'pipsy/pubs/POST_BOARDGAME_SUCCESS';
+const POST_BOARDGAME_FAIL = 'pipsy/pubs/POST_BOARDGAME_FAIL';
 
 import isInArray from '../../helpers/isInArray';
 
 const initialState = {
   isFetching: false,
-  foundBoardgames: [],
   responseReceived: false,
+  foundBoardgames: [],
   stagedBoardgames: [],
+  isUpdating: false,
   selectedEndpoint: 'DB',
-  availableEndpoints: ['DB', 'BGG'],
-  isUpdating: false
+  availableEndpoints: ['DB', 'BGG']
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -83,6 +86,11 @@ export default function reducer(state = initialState, action = {}) {
           ...state.stagedBoardgames.slice(action.payload.index + 1)
         ]
       };
+    case POST_BOARDGAME:
+    case POST_BOARDGAME_SUCCESS:
+    case POST_BOARDGAME_FAIL:
+      console.log(action);
+      return state;
     default:
       return state;
   }
@@ -140,5 +148,27 @@ export function removeFromStaging(index) {
     payload: {
       index
     }
+  };
+}
+
+export function postBoardgame(boardgame) {
+  return {
+    types: [POST_BOARDGAME, POST_BOARDGAME_SUCCESS, POST_BOARDGAME_FAIL],
+    payload: {
+      boardgame
+    },
+    promise: (client) => client.post('/boardgames', {
+      data: boardgame
+    })
+  };
+}
+
+export function submitStagedGames() {
+  return (dispatch, getState) => {
+    getState().boardgames.stagedBoardgames.filter((el) => {
+      return !el._id;
+    }).forEach((el) => {
+      dispatch(postBoardgame(el));
+    });
   };
 }

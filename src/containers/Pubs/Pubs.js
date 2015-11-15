@@ -1,32 +1,37 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import * as pubsActions from 'redux/modules/pubs';
+import { submitStagedGames } from 'redux/modules/boardgames';
 
 @connect(
-  state => ({
+  (state) => ({
     availablePubs: state.pubs.availablePubs,
     selectedPub: state.pubs.selectedPub
   }),
-  pubsActions
+  (dispatch) => ({
+    pubsActions: bindActionCreators(pubsActions, dispatch),
+    submitStagedGames: bindActionCreators(submitStagedGames, dispatch)
+  })
 )
 export default class Pubs extends Component {
   static propTypes = {
     availablePubs: PropTypes.array,
     selectedPub: PropTypes.object,
-    getPubs: PropTypes.func,
-    setSelectedPub: PropTypes.func
+    pubsActions: PropTypes.object,
+    submitStagedGames: PropTypes.func
   }
 
   componentDidMount() {
-    if (this.props.availablePubs.length === 0) this.props.getPubs();
+    if (this.props.availablePubs.length === 0) this.props.pubsActions.getPubs();
   }
 
   handleSelectedPubChange(ev) {
-    this.props.setSelectedPub(ev.target.selectedIndex);
+    this.props.pubsActions.setSelectedPub(ev.target.selectedIndex);
   }
 
   handleSubmitButtonClick() {
-    console.log();
+    this.props.submitStagedGames();
   }
 
   render() {
