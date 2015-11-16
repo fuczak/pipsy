@@ -3,7 +3,21 @@ import { PubForm } from 'components';
 
 export default class NewPub extends Component {
   handleFormSubmit(ev) {
-    console.log(ev);
+    const pubData = {
+      name: ev.name,
+      addressStreet: ev.addressStreet,
+      addressNumber: ev.addressNumber,
+      openingHours: {
+        Mon: [ev.oMon, ev.cMon],
+        Tue: [ev.oTue, ev.cTue],
+        Wed: [ev.oWed, ev.cWed],
+        Thu: [ev.oThu, ev.cThu],
+        Fri: [ev.oFri, ev.cFri],
+        Sat: [ev.oSat, ev.cSat],
+        Sun: [ev.oSun, ev.cSun]
+      }
+    };
+    console.log(pubData);
   }
 
   render() {
