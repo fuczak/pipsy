@@ -12,7 +12,7 @@ const BusinessHours = (props) => {
         :
       </div>
       <div className="col-md-4">
-        <input type="number" id={'c' + props.dayName} className="form-control" defaultValue='24' {...props.closingField} />
+        <input type="number" id={'c' + props.dayName} className="form-control" value='24' {...props.closingField} />
       </div>
     </div>
   );
