@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as pubsActions from 'redux/modules/pubs';
-import { arePubsLoaded, getPubs } from 'redux/modules/pubs';
+import { arePubsLoaded, getPubs } from 'redux/modules/pubs'; // eslint-disable-line no-unused-vars
 import { PubCard } from 'components';
 
 @connect(
@@ -11,24 +11,26 @@ import { PubCard } from 'components';
     availablePubs: state.pubs.availablePubs,
     selectedPub: state.pubs.selectedPub
   }),
-  (dispatch) => ({
-    pubsActions: bindActionCreators(pubsActions, dispatch)
-  })
+  (dispatch) => (
+    bindActionCreators(pubsActions, dispatch)
+  )
 )
 export default class Pubs extends Component {
   static propTypes = {
     children: PropTypes.object,
     availablePubs: PropTypes.array,
     selectedPub: PropTypes.object,
-    pubsActions: PropTypes.object
+    getPubs: PropTypes.func.isRequired,
+    deletePub: PropTypes.func.isRequired
   }
 
-  componentDidMount() {
-    if (this.props.availablePubs.length === 0) this.props.pubsActions.getPubs();
+  static fetchDataDeferred(getState, dispatch) {
+    // if (!arePubsLoaded(getState())) dispatch(getPubs());
+    dispatch(getPubs());
   }
 
-  static fetchData(getState, dispatch) {
-    if (!arePubsLoaded(getState())) dispatch(getPubs());
+  handlePubDelete(id) {
+    this.props.deletePub(id);
   }
 
   render() {
@@ -41,7 +43,7 @@ export default class Pubs extends Component {
             {availablePubs.map((pub) => {
               return (
                 <div key={pub._id} className="col-md-3">
-                  <PubCard pub={pub} />
+                  <PubCard pub={pub} onDeletePub={::this.handlePubDelete.bind(this, pub._id)}/>
                 </div>
               );
             })}

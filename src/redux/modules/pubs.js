@@ -1,7 +1,18 @@
 const GET_PUBS = 'pipsy/pubs/GET_PUBS';
 const GET_PUBS_SUCCESS = 'pipsy/pubs/GET_PUBS_SUCCESS';
 const GET_PUBS_FAIL = 'pipsy/pubs/GET_PUBS_FAIL';
+const DELETE_PUB = 'pipsy/pubs/DELETE_PUB';
+const DELETE_PUB_SUCCESS = 'pipsy/pubs/DELETE_PUB_SUCCESS';
+const DELETE_PUB_FAIL = 'pipsy/pubs/DELETE_PUB_FAIL';
 const SET_SELECTED_PUB = 'pipsy/pubs/SET_SELECTED_PUB';
+
+function getPubIndex(state, id) {
+  let foundIndex = -1;
+  state.availablePubs.forEach((el, index) => {
+    if (el._id === id) foundIndex = index;
+  });
+  return foundIndex;
+}
 
 const initialState = {
   availablePubs: [],
@@ -10,11 +21,24 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
+    case GET_PUBS:
+      return {
+        ...state
+      };
     case GET_PUBS_SUCCESS:
       return {
         ...state,
         availablePubs: action.result,
         selectedPub: action.result[0]
+      };
+    case DELETE_PUB_SUCCESS:
+      const index = getPubIndex(state, action.payload.id);
+      return {
+        ...state,
+        availablePubs: [
+          ...state.availablePubs.slice(0, index),
+          ...state.availablePubs.slice(index + 1)
+        ]
       };
     case SET_SELECTED_PUB:
       return {
@@ -35,6 +59,16 @@ export function getPubs() {
   return {
     types: [GET_PUBS, GET_PUBS_SUCCESS, GET_PUBS_FAIL],
     promise: (client) => client.get('/pubs')
+  };
+}
+
+export function deletePub(id) {
+  return {
+    types: [DELETE_PUB, DELETE_PUB_SUCCESS, DELETE_PUB_FAIL],
+    payload: {
+      id
+    },
+    promise: (client) => client.del(`/pubs/${id}`)
   };
 }
 

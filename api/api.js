@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({type: 'application/vnd.api+json'}));
 app.use(methodOverride());
 
-const Pubs = app.resource = restful.model('pub', Pub).methods(['get', 'post']);
+const Pubs = app.resource = restful.model('pub', Pub).methods(['get', 'post', 'delete']);
 Pubs.register(app, '/pubs');
 
 const Boardgames = app.resource = restful.model('boardgame', Boardgame).methods(['get', 'post']);
