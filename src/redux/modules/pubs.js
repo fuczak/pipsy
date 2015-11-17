@@ -1,6 +1,9 @@
 const GET_PUBS = 'pipsy/pubs/GET_PUBS';
 const GET_PUBS_SUCCESS = 'pipsy/pubs/GET_PUBS_SUCCESS';
 const GET_PUBS_FAIL = 'pipsy/pubs/GET_PUBS_FAIL';
+const POST_PUB = 'pipsy/pubs/POST_PUB';
+const POST_PUB_SUCCESS = 'pipsy/pubs/POST_PUB_SUCCESS';
+const POST_PUB_FAIL = 'pipsy/pubs/POST_PUB_FAIL';
 const DELETE_PUB = 'pipsy/pubs/DELETE_PUB';
 const DELETE_PUB_SUCCESS = 'pipsy/pubs/DELETE_PUB_SUCCESS';
 const DELETE_PUB_FAIL = 'pipsy/pubs/DELETE_PUB_FAIL';
@@ -59,6 +62,15 @@ export function getPubs() {
   return {
     types: [GET_PUBS, GET_PUBS_SUCCESS, GET_PUBS_FAIL],
     promise: (client) => client.get('/pubs')
+  };
+}
+
+export function postPub(pub) {
+  return {
+    types: [POST_PUB, POST_PUB_SUCCESS, POST_PUB_FAIL],
+    promise: (client) => client.post('/pubs', {
+      data: pub
+    })
   };
 }
 

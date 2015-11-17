@@ -1,7 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as pubsActions from 'redux/modules/pubs';
 import { PubForm } from 'components';
 
+@connect(
+  () => ({}),
+  (dispatch) => (
+    bindActionCreators(pubsActions, dispatch)
+  )
+)
 export default class NewPub extends Component {
+  static propTypes = {
+    postPub: PropTypes.func.isRequired
+  }
+
   handleFormSubmit(ev) {
     const pubData = {
       name: ev.name,
@@ -17,7 +30,7 @@ export default class NewPub extends Component {
         Sun: [ev.oSun, ev.cSun]
       }
     };
-    console.log(pubData);
+    this.props.postPub(pubData);
   }
 
   render() {

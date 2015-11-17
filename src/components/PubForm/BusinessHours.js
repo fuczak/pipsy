@@ -1,22 +1,22 @@
 import React from 'react';
 
-/* eslint-disable */
+/* eslint-disable react/prop-types */
 const BusinessHours = (props) => {
   return (
     <div className="form-group">
-      <label htmlFor={props.dayName} className="col-md-3 control-label">{props.dayName}</label>
+      <label htmlFor={'o' + props.dayName} className="col-md-3 control-label">{props.dayName}</label>
       <div className="col-md-4">
-        <input type="number" id={'o' + props.dayName} className="form-control" value='8' {...props.openingField} />
+        <input type="number" id={'o' + props.dayName} className="form-control" value={8} {...props.openingField} />
       </div>
       <div className="col-md-1">
         :
       </div>
       <div className="col-md-4">
-        <input type="number" id={'c' + props.dayName} className="form-control" value='24' {...props.closingField} />
+        <input type="number" id={'c' + props.dayName} className="form-control" value={24} {...props.closingField} />
       </div>
     </div>
   );
 };
-/* eslint-enable */
+/* eslint-enable react/prop-types */
 
 export default BusinessHours;
