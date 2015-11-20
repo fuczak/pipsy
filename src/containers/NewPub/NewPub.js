@@ -4,6 +4,16 @@ import { bindActionCreators } from 'redux';
 import * as pubsActions from 'redux/modules/pubs';
 import { PubForm } from 'components';
 
+const initialPub = {
+  oMon: 8, cMon: 24,
+  oTue: 8, cTue: 24,
+  oWed: 8, cWed: 24,
+  oThu: 8, cThu: 24,
+  oFri: 8, cFri: 24,
+  oSat: 8, cSat: 24,
+  oSun: 8, cSun: 24
+};
+
 @connect(
   () => ({}),
   (dispatch) => (
@@ -15,7 +25,7 @@ export default class NewPub extends Component {
     postPub: PropTypes.func.isRequired
   }
 
-  handleFormSubmit(ev) {
+  handleFormSubmit = (ev) => {
     const pubData = {
       name: ev.name,
       addressStreet: ev.addressStreet,
@@ -38,7 +48,7 @@ export default class NewPub extends Component {
       <div className="row">
         <div className="col-md-10 col-md-offset-1">
           <h1>Please fill all the fields below</h1>
-          <PubForm onSubmit={::this.handleFormSubmit}/>
+          <PubForm initialValues={initialPub} onSubmit={this.handleFormSubmit}/>
         </div>
       </div>
     );
