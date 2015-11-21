@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as pubsActions from 'redux/modules/pubs';
 import { PubForm } from 'components';
+import schemaConverter from '../../helpers/formToPubSchema';
 
 const initialPub = {
   oMon: 8, cMon: 24,
@@ -26,22 +27,7 @@ export default class NewPub extends Component {
   }
 
   handleFormSubmit = (ev) => {
-    const pubData = {
-      name: ev.name,
-      address: {
-        street: ev.addressStreet,
-        number: ev.addressNumber
-      },
-      openingHours: {
-        mon: [ev.oMon, ev.cMon],
-        tue: [ev.oTue, ev.cTue],
-        wed: [ev.oWed, ev.cWed],
-        thu: [ev.oThu, ev.cThu],
-        fri: [ev.oFri, ev.cFri],
-        sat: [ev.oSat, ev.cSat],
-        sun: [ev.oSun, ev.cSun]
-      }
-    };
+    const pubData = schemaConverter(ev);
     this.props.postPub(pubData);
   }
 

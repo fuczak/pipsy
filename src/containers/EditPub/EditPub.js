@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as pubsActions from 'redux/modules/pubs';
 import { PubForm } from 'components';
+import schemaConverter from '../../helpers/formToPubSchema';
 
 @connect(
   (state) => ({
@@ -24,8 +25,9 @@ export default class EditPub extends Component {
     this.props.setSelectedPubById(this.props.pubId);
   }
 
-  handleEditSubmit = (ev) => {
-    console.log(ev);
+  handleFormSubmit = (ev) => {
+    const pubData = schemaConverter(ev);
+    console.log(pubData);
   }
 
   render() {
@@ -45,7 +47,7 @@ export default class EditPub extends Component {
     };
     return (
       <div>
-        <PubForm initialValues={pub} onSubmit={this.handleEditSubmit}/>
+        <PubForm initialValues={pub} onSubmit={this.handleFormSubmit}/>
       </div>
     );
   }
