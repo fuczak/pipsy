@@ -6,16 +6,20 @@ export default mongoose.Schema({ // eslint-disable-line
     unique: true,
     required: true
   },
-  addressStreet: String,
-  addressNumber: Number,
+  address: {
+    street: String,
+    number: Number,
+    lat: Number,
+    lon: Number
+  },
   openingHours: {
-    Mon: [Number],
-    Tue: [Number],
-    Wed: [Number],
-    Thu: [Number],
-    Fri: [Number],
-    Sat: [Number],
-    Sun: [Number],
+    mon: [Number],
+    tue: [Number],
+    wed: [Number],
+    thu: [Number],
+    fri: [Number],
+    sat: [Number],
+    sun: [Number],
   },
   boardgames: [mongoose.Schema.Types.ObjectId]
 });

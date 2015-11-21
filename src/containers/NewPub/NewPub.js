@@ -28,16 +28,18 @@ export default class NewPub extends Component {
   handleFormSubmit = (ev) => {
     const pubData = {
       name: ev.name,
-      addressStreet: ev.addressStreet,
-      addressNumber: ev.addressNumber,
+      address: {
+        street: ev.addressStreet,
+        number: ev.addressNumber
+      },
       openingHours: {
-        Mon: [ev.oMon, ev.cMon],
-        Tue: [ev.oTue, ev.cTue],
-        Wed: [ev.oWed, ev.cWed],
-        Thu: [ev.oThu, ev.cThu],
-        Fri: [ev.oFri, ev.cFri],
-        Sat: [ev.oSat, ev.cSat],
-        Sun: [ev.oSun, ev.cSun]
+        mon: [ev.oMon, ev.cMon],
+        tue: [ev.oTue, ev.cTue],
+        wed: [ev.oWed, ev.cWed],
+        thu: [ev.oThu, ev.cThu],
+        fri: [ev.oFri, ev.cFri],
+        sat: [ev.oSat, ev.cSat],
+        sun: [ev.oSun, ev.cSun]
       }
     };
     this.props.postPub(pubData);
