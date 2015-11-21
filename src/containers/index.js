@@ -2,6 +2,7 @@ export App from './App/App';
 export Boardgames from './Boardgames/Boardgames';
 export Pubs from './Pubs/Pubs';
 export NewPub from './NewPub/NewPub';
+export EditPub from './EditPub/EditPub';
 export Chat from './Chat/Chat';
 export Home from './Home/Home';
 export Widgets from './Widgets/Widgets';

@@ -19,7 +19,8 @@ function getPubIndex(state, id) {
 
 const initialState = {
   availablePubs: [],
-  selectedPub: {}
+  selectedPub: {},
+  pubBeingEdited: {}
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -90,5 +91,11 @@ export function setSelectedPub(index) {
     payload: {
       index
     }
+  };
+}
+
+export function setSelectedPubById(id) {
+  return (dispatch, getState) => {
+    dispatch(setSelectedPub(getPubIndex(getState().pubs, id)));
   };
 }
