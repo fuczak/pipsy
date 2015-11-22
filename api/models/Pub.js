@@ -10,7 +10,7 @@ export default mongoose.Schema({ // eslint-disable-line
     street: String,
     number: Number,
     lat: Number,
-    lon: Number
+    lng: Number
   },
   openingHours: {
     mon: [Number],
