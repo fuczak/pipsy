@@ -18,7 +18,7 @@ export default class PubMap extends Component {
           }
         }}
         defaultZoom={15}
-        defaultCenter={{
+        center={{
           lat: this.props.lat,
           lng: this.props.lng
         }}>
