@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import BusinessHours from './BusinessHours';
+import { PubMap } from 'components';
 export const fields = [
   'name',
   'addressStreet',
@@ -55,6 +56,9 @@ class PubForm extends Component {
               <div className="col-md-4">
                 <input className="form-control" type="number" id="number" placeholder="Pub street number... " {...addressNumber} />
               </div>
+            </div>
+            <div className="form-group">
+              <PubMap street="Miodowa" number={24} />
             </div>
           </div>
           <div className="col-md-4">

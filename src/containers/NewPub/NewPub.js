@@ -23,6 +23,8 @@ const initialPub = {
 )
 export default class NewPub extends Component {
   static propTypes = {
+    street: PropTypes.string,
+    number: PropTypes.number,
     postPub: PropTypes.func.isRequired
   }
 
