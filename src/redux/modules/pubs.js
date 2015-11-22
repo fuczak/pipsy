@@ -32,8 +32,7 @@ export default function reducer(state = initialState, action = {}) {
     case GET_PUBS_SUCCESS:
       return {
         ...state,
-        availablePubs: action.result,
-        selectedPub: action.result[0]
+        availablePubs: action.result
       };
     case DELETE_PUB_SUCCESS:
       const index = getPubIndex(state, action.payload.id);
