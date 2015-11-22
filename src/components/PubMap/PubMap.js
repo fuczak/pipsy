@@ -3,8 +3,8 @@ import { GoogleMap, Marker } from 'react-google-maps';
 
 export default class PubMap extends Component {
   static propTypes = {
-    street: PropTypes.string.isRequired,
-    number: PropTypes.number.isRequired
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired
   }
 
   render() {
@@ -19,12 +19,12 @@ export default class PubMap extends Component {
         }}
         defaultZoom={15}
         defaultCenter={{
-          lat: 50.05,
-          lng: 19.94
+          lat: this.props.lat,
+          lng: this.props.lng
         }}>
         <Marker position={{
-          lat: 50.05,
-          lng: 19.94
+          lat: this.props.lat,
+          lng: this.props.lng
         }} />
         </GoogleMap>
       </div>
