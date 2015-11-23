@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import BusinessHours from './BusinessHours';
 import { PubMap } from 'components';
 import getPosition from '../../helpers/getPosition';
+import { debounce } from 'lodash';
 
 export default class PubForm extends Component {
   static propTypes = {
@@ -69,13 +70,13 @@ export default class PubForm extends Component {
               <div className="col-md-6">
                 <input className="form-control" type="text" id="street" placeholder="Pub street name... "
                   ref={(ref) => this.form.addressStreet = ref}
-                  onChange={this.getNewGeoposition}/>
+                  onChange={debounce(this.getNewGeoposition, 400)}/>
               </div>
               <label className="col-md-1 control-label" htmlFor="number">Street Number</label>
               <div className="col-md-4">
                 <input className="form-control" type="number" id="number" placeholder="Pub street number... "
                   ref={(ref) => this.form.addressNumber = ref}
-                  onChange={this.getNewGeoposition}/>
+                  onChange={debounce(this.getNewGeoposition, 400)}/>
               </div>
             </div>
             <div className="form-group">
