@@ -4,6 +4,9 @@ const GET_PUBS_FAIL = 'pipsy/pubs/GET_PUBS_FAIL';
 const POST_PUB = 'pipsy/pubs/POST_PUB';
 const POST_PUB_SUCCESS = 'pipsy/pubs/POST_PUB_SUCCESS';
 const POST_PUB_FAIL = 'pipsy/pubs/POST_PUB_FAIL';
+const GET_PLACES = 'pipsy/pubs/GET_PLACES';
+const GET_PLACES_SUCCESS = 'pipsy/pubs/GET_PLACES_SUCCESS';
+const GET_PLACES_FAIL = 'pipsy/pubs/GET_PLACES_FAIL';
 const DELETE_PUB = 'pipsy/pubs/DELETE_PUB';
 const DELETE_PUB_SUCCESS = 'pipsy/pubs/DELETE_PUB_SUCCESS';
 const DELETE_PUB_FAIL = 'pipsy/pubs/DELETE_PUB_FAIL';
@@ -19,20 +22,44 @@ function getPubIndex(state, id) {
 
 const initialState = {
   availablePubs: [],
+  isFetching: false,
   selectedPub: {},
-  pubBeingEdited: {}
+  foundPlaces: []
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case GET_PUBS:
       return {
-        ...state
+        ...state,
+        isFetching: true
       };
     case GET_PUBS_SUCCESS:
       return {
         ...state,
+        isFetching: false,
         availablePubs: action.result
+      };
+    case GET_PUBS_FAIL:
+      return {
+        ...state,
+        isFetching: false
+      };
+    case GET_PLACES:
+      return {
+        ...state,
+        isFetching: true
+      };
+    case GET_PLACES_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        foundPlaces: action.result.predictions
+      };
+    case GET_PLACES_FAIL:
+      return {
+        ...state,
+        isFetching: false
       };
     case DELETE_PUB_SUCCESS:
       const index = getPubIndex(state, action.payload.id);
@@ -81,6 +108,16 @@ export function deletePub(id) {
       id
     },
     promise: (client) => client.del(`/pubs/${id}`)
+  };
+}
+
+export function queryPlaces(query) {
+  return {
+    types: [GET_PLACES, GET_PLACES_SUCCESS, GET_PLACES_FAIL],
+    payload: {
+      query
+    },
+    promise: (client) => client.get(`/pubs/places?q=${query}`)
   };
 }
 
