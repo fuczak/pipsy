@@ -1,0 +1,1 @@
+export queryPlacesApi from './queryPlacesApi';

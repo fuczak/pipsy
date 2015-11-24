@@ -10,6 +10,7 @@ export BoardgameList from './BoardgameList/BoardgameList';
 export BoardgameListItem from './BoardgameListItem/BoardgameListItem';
 export PubCard from './PubCard/PubCard';
 export PubForm from './PubForm/PubForm';
+export PubSearch from './PubSearch/PubSearch';
 export PubMap from './PubMap/PubMap';
 export CounterButton from './CounterButton/CounterButton';
 export GithubButton from './GithubButton/GithubButton';
