@@ -13,8 +13,8 @@ export default class PubMap extends Component {
         <GoogleMap containerProps={{
           ...this.props,
           style: {
-            height: '300px',
-            width: '600px'
+            minHeight: '200px',
+            width: '100%'
           }
         }}
         defaultZoom={15}
