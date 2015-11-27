@@ -76,7 +76,7 @@ export default function reducer(state = initialState, action = {}) {
         isFetching: false,
         selectedPub: {
           ...state.selectedPub,
-          datails: action.result.result
+          details: action.result.result
         }
       };
     case GET_PLACE_DETAILS_FAIL:
@@ -183,18 +183,3 @@ export function clickedOnPlaceSuggestion(placeId, description) {
     dispatch(queryPlaceDetails(placeId));
   };
 }
-
-// export function setSelectedPub(index) {
-//   return {
-//     type: SET_SELECTED_PUB,
-//     payload: {
-//       index
-//     }
-//   };
-// }
-//
-// export function setSelectedPubById(id) {
-//   return (dispatch, getState) => {
-//     dispatch(setSelectedPub(getPubIndex(getState().pubs, id)));
-//   };
-// }
