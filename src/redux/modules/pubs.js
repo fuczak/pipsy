@@ -7,10 +7,14 @@ const POST_PUB_FAIL = 'pipsy/pubs/POST_PUB_FAIL';
 const GET_PLACES = 'pipsy/pubs/GET_PLACES';
 const GET_PLACES_SUCCESS = 'pipsy/pubs/GET_PLACES_SUCCESS';
 const GET_PLACES_FAIL = 'pipsy/pubs/GET_PLACES_FAIL';
+const GET_PLACE_DETAILS = 'pipsy/pubs/GET_PLACE_DETAILS';
+const GET_PLACE_DETAILS_SUCCESS = 'pipsy/pubs/GET_PLACE_DETAILS_SUCCESS';
+const GET_PLACE_DETAILS_FAIL = 'pipsy/pubs/GET_PLACE_DETAILS_FAIL';
+const CLEAR_PLACES_SUGGESTIONS = 'pipsy/pubs/CLEAR_PLACES_SUGGESTIONS';
 const DELETE_PUB = 'pipsy/pubs/DELETE_PUB';
 const DELETE_PUB_SUCCESS = 'pipsy/pubs/DELETE_PUB_SUCCESS';
 const DELETE_PUB_FAIL = 'pipsy/pubs/DELETE_PUB_FAIL';
-const SET_SELECTED_PUB = 'pipsy/pubs/SET_SELECTED_PUB';
+const SET_SELECTED_PUB_DESCRIPTION = 'pipsy/pubs/SET_SELECTED_PUB';
 
 function getPubIndex(state, id) {
   let foundIndex = -1;
@@ -61,6 +65,30 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         isFetching: false
       };
+    case GET_PLACE_DETAILS:
+      return {
+        ...state,
+        isFetching: true
+      };
+    case GET_PLACE_DETAILS_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        selectedPub: {
+          ...state.selectedPub,
+          datails: action.result.result
+        }
+      };
+    case GET_PLACE_DETAILS_FAIL:
+      return {
+        ...state,
+        isFetching: false
+      };
+    case CLEAR_PLACES_SUGGESTIONS:
+      return {
+        ...state,
+        foundPlaces: []
+      };
     case DELETE_PUB_SUCCESS:
       const index = getPubIndex(state, action.payload.id);
       return {
@@ -70,10 +98,13 @@ export default function reducer(state = initialState, action = {}) {
           ...state.availablePubs.slice(index + 1)
         ]
       };
-    case SET_SELECTED_PUB:
+    case SET_SELECTED_PUB_DESCRIPTION:
       return {
         ...state,
-        selectedPub: state.availablePubs[action.payload.index]
+        selectedPub: {
+          ...state.selectedPub,
+          description: action.payload.description
+        }
       };
     default:
       return state;
@@ -121,17 +152,49 @@ export function queryPlaces(query) {
   };
 }
 
-export function setSelectedPub(index) {
+export function queryPlaceDetails(placeId) {
   return {
-    type: SET_SELECTED_PUB,
+    types: [GET_PLACE_DETAILS, GET_PLACE_DETAILS_SUCCESS, GET_PLACE_DETAILS_FAIL],
     payload: {
-      index
+      placeId
+    },
+    promise: (client) => client.get(`/pubs/places?id=${placeId}`)
+  };
+}
+
+export function clearPlaces() {
+  return {
+    type: CLEAR_PLACES_SUGGESTIONS
+  };
+}
+
+export function setSelectedPubDescription(description) {
+  return {
+    type: SET_SELECTED_PUB_DESCRIPTION,
+    payload: {
+      description
     }
   };
 }
 
-export function setSelectedPubById(id) {
-  return (dispatch, getState) => {
-    dispatch(setSelectedPub(getPubIndex(getState().pubs, id)));
+export function clickedOnPlaceSuggestion(placeId, description) {
+  return (dispatch) => {
+    dispatch(setSelectedPubDescription(description));
+    dispatch(queryPlaceDetails(placeId));
   };
 }
+
+// export function setSelectedPub(index) {
+//   return {
+//     type: SET_SELECTED_PUB,
+//     payload: {
+//       index
+//     }
+//   };
+// }
+//
+// export function setSelectedPubById(id) {
+//   return (dispatch, getState) => {
+//     dispatch(setSelectedPub(getPubIndex(getState().pubs, id)));
+//   };
+// }
