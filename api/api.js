@@ -36,6 +36,11 @@ Pubs.route('places.get', (req, res) => {
     res.send(data);
   });
 });
+Pubs.route('place.get', (req, res) => {
+  actions.pubs.queryPlacesApi(req).then((data) => {
+    res.send(data);
+  });
+});
 Pubs.register(app, '/pubs');
 
 const Boardgames = app.resource = restful.model('boardgame', Boardgame).methods(['get', 'post']);

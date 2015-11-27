@@ -4,7 +4,16 @@ import config from '../../../src/config';
 const key = config.gpapi;
 
 export default function queryPlacesApi(req) {
-  const url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + req.query.q + '&key=' + key;
+  let url = undefined;
+
+  if (req.query && req.query.q) {
+    url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${req.query.q}&key=${key}`;
+  } else if (req.query && req.query.id) {
+    url = `https://maps.googleapis.com/maps/api/place/details/json?placeid=${req.query.id}&key=${key}`;
+  } else {
+    Promise.reject();
+  }
+
   return new Promise((resolve, reject) => {
     request({
       url,
