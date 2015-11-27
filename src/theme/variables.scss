@@ -18,12 +18,21 @@ $brand-warning: #f0ad4e;
 $brand-danger: #d9534f;
 $brand-info: #5bc0de;
 
-$brand-grey: #f3f3f3;
+$brand-grey: #949494;
+$brand-grey-light: lighten($brand-grey, 32%);
 
 $text-color: #333;
 
+$input-border-focus: $brand-primary;
+
+$transition-base: 200ms all ease-out;
+
 $font-size-base: 14px;
-$font-family-sans-serif: "Helvetica Neue", Helvetica, sans-serif;
+$headings-font-family: "Raleway", sans-serif;
+$headings-font-weight: 200;
+$font-family-sans-serif: "Merriweather", Helvetica, serif;
+
+$border-radius-base: 3px;
 
 $box-shadow-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 $box-shadow-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);

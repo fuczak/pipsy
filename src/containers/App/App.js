@@ -40,7 +40,7 @@ export default class App extends Component {
           <div className="container">
             <NavbarLink to="/" className="navbar-brand" component={IndexLink}>
               <div className={styles.brand}/>
-              React Redux Example
+              Pipsy
             </NavbarLink>
 
             <ul className="nav navbar-nav">
@@ -57,7 +57,13 @@ export default class App extends Component {
         </nav>
         <div className={styles.appContent}>
           <div className="container-fluid">
-            {this.props.children}
+            <div className="row">
+              <div className="col-md-8 col-md-offset-2">
+                <div className={styles.innerbox}>
+                  {this.props.children}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

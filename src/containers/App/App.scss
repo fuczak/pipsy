@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:200|Merriweather:400);
 @import '../../theme/variables.scss';
 
 .app {
@@ -20,6 +21,15 @@
   }
 }
 .appContent {
-  margin: 60px 0; // for fixed navbar
-  background: $brand-grey;
+  margin: 55px 0; // for fixed navbar
+  background: $brand-grey-light;
+}
+.innerbox {
+  position: relative;
+  background: none repeat scroll 0 0 #FFFFFF;
+  border-radius: $border-radius-base;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1);
+  box-shadow: 0 1px 1px rgba(180,180,180,0.5);
+  margin: 30px 0;
+  padding: 20px 15px;
 }
