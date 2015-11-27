@@ -1,0 +1,41 @@
+@import '../../theme/variables.scss';
+
+.wrapper {
+  width: 100%;
+}
+.icon {
+  color: $brand-grey;
+  font-size: 22px;
+  position: absolute;
+}
+.iconleft {
+  @extend .icon;
+  left: 30px;
+  top: 103px;
+  border-right: 1px solid $brand-grey-light;
+  padding-right: 10px;
+}
+.iconright {
+  @extend .icon;
+  right: 30px;
+  top: 103px;
+  border-left: 1px solid $brand-grey-light;
+  padding-left: 10px;
+}
+.hasIcon {
+  padding-left: 55px;
+  height: 48px;
+  color: $brand-grey;
+}
+.publist {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+}
+.item {
+  transition: $transition-base;
+  &:hover {
+    background-color:  $brand-primary;
+    color: #FFF;
+  }
+}
