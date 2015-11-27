@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as pubsActions from 'redux/modules/pubs';
 // import { PubForm } from 'components';
-import { PubSearch } from 'components';
+import { PubSearch, PubMap } from 'components';
 
 @connect(
   (state) => ({
@@ -38,6 +38,7 @@ export default class NewPub extends Component {
   }
 
   render() {
+    const {selectedPub} = this.props;
     return (
       <div>
         <h1 className="text-center">Please fill all the fields below</h1>
@@ -47,9 +48,15 @@ export default class NewPub extends Component {
           onInputChange={this.handleSearchChange}
           onListItemClick={this.handleListItemClick}
           onClear={this.props.clearPlaces}/>
-        <h2>Wybrano Pub:</h2>
-        {this.props.selectedPub &&
-        <p>{this.props.selectedPub.description}</p> }
+        {selectedPub && selectedPub.details &&
+          <div>
+            <h2>Wybrano Pub:</h2>
+            <p>{selectedPub.description}</p>
+            <PubMap
+              lat={selectedPub.details.geometry.location.lat}
+              lng={selectedPub.details.geometry.location.lng} />
+          </div>
+        }
       </div>
     );
   }

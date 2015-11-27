@@ -21,6 +21,7 @@ export default class PubSearch extends Component {
         <i className={styles.iconleft + ' fa fa-search'}></i>
         <input className={styles.hasIcon + ' form-control'}
           type="text"
+          placeholder="Search through places..."
           ref={(ref) => this.searchbox = ref}
           onChange={debounce(this.props.onInputChange, 400)} />
         <ul className={styles.publist + ' list-group'}>
