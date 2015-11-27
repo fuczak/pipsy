@@ -7,7 +7,8 @@ import { PubSearch } from 'components';
 
 @connect(
   (state) => ({
-    foundPlaces: state.pubs.foundPlaces
+    foundPlaces: state.pubs.foundPlaces,
+    selectedPub: state.pubs.selectedPub
   }),
   (dispatch) => (
     bindActionCreators(pubsActions, dispatch)
@@ -16,8 +17,11 @@ import { PubSearch } from 'components';
 export default class NewPub extends Component {
   static propTypes = {
     foundPlaces: PropTypes.array.isRequired,
+    selectedPub: PropTypes.object.isRequired,
     postPub: PropTypes.func.isRequired,
-    queryPlaces: PropTypes.func.isRequired
+    queryPlaces: PropTypes.func.isRequired,
+    clearPlaces: PropTypes.func.isRequired,
+    clickedOnPlaceSuggestion: PropTypes.func.isRequired
   }
 
   handleFormSubmit = (pubObject) => {
@@ -28,29 +32,24 @@ export default class NewPub extends Component {
     this.props.queryPlaces(ev.target.value);
   }
 
-  handleListItemClick = (id) => {
-    console.log(id);
+  handleListItemClick = (placeId, description) => {
+    this.props.clickedOnPlaceSuggestion(placeId, description);
+    this.props.clearPlaces();
   }
 
   render() {
     return (
-      <div className="row">
-        <div className="col-md-10 col-md-offset-1">
-          <h1>Please fill all the fields below</h1>
-          {/* <PubForm onSubmit={this.handleFormSubmit}/> */}
-          <PubSearch onInputChange={this.handleSearchChange}/>
-          <ul className="list-group">
-            {this.props.foundPlaces.map((place) => {
-              return (
-                <li className="list-group-item"
-                  key={place.id}
-                  onClick={this.handleListItemClick.bind(this, place.place_id)}>
-                  {place.description}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+      <div>
+        <h1 className="text-center">Please fill all the fields below</h1>
+        {/* <PubForm onSubmit={this.handleFormSubmit}/> */}
+        <PubSearch
+          foundPlaces={this.props.foundPlaces}
+          onInputChange={this.handleSearchChange}
+          onListItemClick={this.handleListItemClick}
+          onClear={this.props.clearPlaces}/>
+        <h2>Wybrano Pub:</h2>
+        {this.props.selectedPub &&
+        <p>{this.props.selectedPub.description}</p> }
       </div>
     );
   }
