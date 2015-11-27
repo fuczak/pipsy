@@ -50,8 +50,8 @@ export default class NewPub extends Component {
           onClear={this.props.clearPlaces}/>
         {selectedPub && selectedPub.details &&
           <div>
-            <h2>Wybrano Pub:</h2>
-            <p>{selectedPub.description}</p>
+            <a href={selectedPub.details.website}><h2>{selectedPub.details.name}</h2></a>
+            <p>{selectedPub.details.formatted_address}</p>
             <PubMap
               lat={selectedPub.details.geometry.location.lat}
               lng={selectedPub.details.geometry.location.lng} />
