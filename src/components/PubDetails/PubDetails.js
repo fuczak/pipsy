@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import PubHours from './PubHours';
 import PubReviews from './PubReviews';
+import PubStars from './PubStars';
 
 export default class PubDetails extends Component {
   static propTypes = {
@@ -11,7 +12,7 @@ export default class PubDetails extends Component {
     const {pub} = this.props;
     return (
       <div className="row">
-        <div className="col-md-4 col-md-offset-2">
+        <div className="col-md-4 col-md-offset-1">
           {pub.details.opening_hours ?
             <PubHours hours={pub.details.opening_hours} /> :
             <div>
@@ -19,10 +20,18 @@ export default class PubDetails extends Component {
             </div>
           }
         </div>
-        <div className="col-md-4">
+        <div className="col-md-5 col-md-offset-1">
           {pub.details.rating ?
             <div>
-              <h2 className="text-center">Rating: {pub.details.rating} / 5</h2>
+              <h2 className="text-center">
+                Rating: {pub.details.rating} / 5
+                <div>
+                  <small>
+                    <PubStars rating={pub.details.rating}/>
+                  </small>
+                </div>
+              </h2>
+              <hr />
               <PubReviews reviews={pub.details.reviews} />
             </div> :
             <div>

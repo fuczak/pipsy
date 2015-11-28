@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as pubsActions from 'redux/modules/pubs';
-// import { PubForm } from 'components';
 import { PubSearch, PubMap, PubBasicInfo, PubDetails } from 'components';
 
 @connect(
@@ -43,7 +42,6 @@ export default class NewPub extends Component {
     return (
       <div>
         <h1 className="text-center">Please fill all the fields below</h1>
-        {/* <PubForm onSubmit={this.handleFormSubmit}/> */}
         <PubSearch
           foundPlaces={this.props.foundPlaces}
           onInputChange={this.handleSearchChange}
