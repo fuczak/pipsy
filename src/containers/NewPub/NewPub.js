@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as pubsActions from 'redux/modules/pubs';
 // import { PubForm } from 'components';
-import { PubSearch, PubMap } from 'components';
+import { PubSearch, PubMap, PubBasicInfo, PubDetails } from 'components';
 
 @connect(
   (state) => ({
@@ -38,6 +38,7 @@ export default class NewPub extends Component {
   }
 
   render() {
+    const styles = require('./NewPub.scss');
     const {selectedPub} = this.props;
     return (
       <div>
@@ -49,12 +50,20 @@ export default class NewPub extends Component {
           onListItemClick={this.handleListItemClick}
           onClear={this.props.clearPlaces}/>
         {selectedPub && selectedPub.details &&
-          <div>
-            <a href={selectedPub.details.website}><h2>{selectedPub.details.name}</h2></a>
-            <p>{selectedPub.details.formatted_address}</p>
+          <div className="row">
+            <div className="col-md-1">
+              <img src={selectedPub.details.icon} alt="" className={styles.icon + ' img-responsive'}/>
+            </div>
+            <div className="col-md-7">
+              <PubBasicInfo pub={selectedPub} />
+            </div>
+            <div className="col-md-4">
+              <button className={styles.addpub + ' btn btn-success btn-lg pull-left'}>Add to Database</button>
+            </div>
             <PubMap
               lat={selectedPub.details.geometry.location.lat}
               lng={selectedPub.details.geometry.location.lng} />
+            <PubDetails pub={selectedPub} />
           </div>
         }
       </div>

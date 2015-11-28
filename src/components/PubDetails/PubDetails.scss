@@ -1,0 +1,11 @@
+@import "../../theme/variables.scss";
+
+.reviewimage {
+  border-radius: 50%;
+  width: 60px;
+}
+.review {
+  padding: 20px 10px;
+  border: 1px solid $brand-primary-light;
+  border-radius: $border-radius-base;
+}

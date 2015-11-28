@@ -2,12 +2,15 @@
  * Override Bootstrap styles that you can't modify via variables here.
  *
  */
+ @import './variables.scss';
 
 .navbar-brand {
   position: relative;
   padding-left: 50px;
 }
-
+button {
+  font-family: $headings-font-family;
+}
 /**
   * Animations
   */

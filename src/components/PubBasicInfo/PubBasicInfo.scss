@@ -1,0 +1,17 @@
+@import '../../theme/variables.scss';
+
+.icon {
+  position: absolute;
+  color: $brand-grey;
+  font-size: 22px;
+}
+.details {
+  margin-bottom: 20px;
+}
+.span {
+  border-right: 1px solid $brand-grey-light;
+  margin-right: 15px;
+  a{
+    padding: 0 15px 0 25px;
+  }
+}

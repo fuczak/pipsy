@@ -97,6 +97,7 @@
     "lru-memoize": "^1.0.0",
     "map-props": "^1.0.0",
     "method-override": "^2.3.5",
+    "moment": "^2.10.6",
     "mongoose": "^4.2.5",
     "multireducer": "^1.0.2",
     "node-restful": "^0.2.2",
