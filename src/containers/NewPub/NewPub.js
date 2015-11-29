@@ -56,7 +56,7 @@ export default class NewPub extends Component {
               <PubBasicInfo pub={selectedPub} />
             </div>
             <div className="col-md-4">
-              <button className={styles.addpub + ' btn btn-success btn-lg pull-left'}>Add to Database</button>
+              <button className={styles.addpub + ' btn btn-success btn-lg pull-right'}>Add to Database</button>
             </div>
             <PubMap
               lat={selectedPub.details.geometry.location.lat}

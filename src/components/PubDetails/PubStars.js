@@ -5,13 +5,9 @@ export default class PubStars extends Component {
   static propTypes = {
     rating: PropTypes.number.isRequired
   }
-  constructor(props) {
-    super(props);
-    this.starsArray = this.props.rating.toString().split('.').map(el => Number(el));
-  }
 
   render() {
-    const array = this.starsArray;
+    const array = this.props.rating.toString().split('.').map(el => Number(el));
     return (
       <span className="label label-primary">
         {times(array[0], (nr) => {
